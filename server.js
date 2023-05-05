@@ -1,3 +1,4 @@
+
 const express = require('express');
 const puppeteer = require("puppeteer");
 
@@ -6,13 +7,13 @@ const server = express();
 server.get('/', async (request, response) => {
     const browser = await puppeteer.launch({ headless: 'new' });
     const page = await browser.newPage();
-    await page.goto('https://data.worldbank.org/indicator/EG.ELC.ACCS.ZS?end=2020&locations=1W&start=2010&view=chart')
+    await page.goto('https://dolarhoje.com/bitcoin-hoje/')
 
-    
+
 
     const PageContent = await page.evaluate(() => {
         return {
-            paises: document.querySelector('.body .infinite').innerHTML,
+            BTC: document.querySelector('#nacional').value,
         };
     });
     console.log("PageContent", PageContent);
@@ -20,7 +21,7 @@ server.get('/', async (request, response) => {
     await browser.close();
 
     response.send({
-        "paises":PageContent.paises,
+        "BTC": PageContent.BTC,
     });
 });
 
